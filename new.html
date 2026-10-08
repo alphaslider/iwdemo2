@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Island Warriors Street Outreach Society | Peer-Led & Indigenous-Led</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stoneDark: '#12100e',
+                        stoneCard: '#1c1917',
+                        stoneBorder: '#292524',
+                        stoneHover: '#44403c',
+                        accentGold: '#d4a373',
+                        accentGoldHover: '#e9b986',
+                        creamText: '#fefae0',
+                        mutedText: '#a89f91'
+                    },
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #12100e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #292524;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #44403c;
+        }
+        body {
+            background-color: #12100e;
+            color: #fefae0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-heading {
+            font-family: 'Cinzel', serif;
+        }
+        /* Glassmorphism header */
+        .glass-header {
+            background: rgba(18, 16, 14, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(212, 163, 115, 0.15);
+        }
+        .card-glow {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-glow:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 163, 115, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(212, 163, 115, 0.1);
+        }
+        /* Staggered Mobile Menu Animation */
+        .mobile-menu {
+            background-color: #12100e !important;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .mobile-menu-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .mobile-menu.open .mobile-menu-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-stoneDark text-creamText antialiased selection:bg-accentGold selection:text-stoneDark">
+
+    <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-header py-4 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Name & Identity Line -->
+            <a href="#hero" class="flex flex-col group">
+                <span class="font-heading font-bold text-sm md:text-lg tracking-wider text-creamText group-hover:text-accentGold transition-colors">Island Warriors</span>
+                <span class="text-[9px] md:text-[10px] text-mutedText tracking-widest uppercase">Street Outreach Society</span>
+                <span class="text-[8px] md:text-[9px] text-accentGold font-medium tracking-wide mt-0.5">Peer-led. Indigenous-led. Lived-experience driven. Community supported.</span>
+            </a>
+
+            <!-- Streamlined Desktop Navigation (Fewer Links) -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                <a href="#who-we-are" class="text-mutedText hover:text-accentGold transition-colors">Who We Are</a>
+                <a href="#what-we-do" class="text-mutedText hover:text-accentGold transition-colors">What We Do</a>
+                <a href="#relations" class="text-mutedText hover:text-accentGold transition-colors">All My Relations</a>
+                <a href="#testimonies" class="text-mutedText hover:text-accentGold transition-colors">Testimonies</a>
+                <a href="#contact" class="text-mutedText hover:text-accentGold transition-colors">Contact</a>
+            </nav>
+
+            <!-- Header Action / Donation Button -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <a href="https://www.zeffy.com/en-CA/donation-form/donate-to-change-lives-23324" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-accentGold text-stoneDark hover:bg-accentGoldHover text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm">
+                    Donate Now
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="hamburger-btn" aria-label="Toggle Navigation" class="lg:hidden text-creamText hover:text-accentGold p-2 focus:outline-none transition-colors">
+                <i class="fa-solid fa-bars text-2xl" id="hamburger-icon"></i>
+            </button>
+        </div>
+
+        <!-- Solid Opaque Mobile Menu Drawer -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden fixed inset-x-0 top-[73px] h-[calc(100vh-73px)] border-b border-stoneBorder/80 overflow-y-auto">
+            <div class="flex flex-col px-8 py-12 space-y-6 text-center">
+                <a href="#who-we-are" class="mobile-menu-item text-xl font-heading text-creamText hover:text-accentGold transition-colors" style="transition-delay: 80ms;">Who We Are</a>
+                <a href="#what-we-do" class="mobile-menu-item text-xl font-heading text-creamText hover:text-accentGold transition-colors" style="transition-delay: 140ms;">What We Do</a>
+                <a href="#relations" class="mobile-menu-item text-xl font-heading text-creamText hover:text-accentGold transition-colors" style="transition-delay: 200ms;">All My Relations</a>
+                <a href="#testimonies" class="mobile-menu-item text-xl font-heading text-creamText hover:text-accentGold transition-colors" style="transition-delay: 260ms;">Testimonies</a>
+                <a href="#contact" class="mobile-menu-item text-xl font-heading text-creamText hover:text-accentGold transition-colors" style="transition-delay: 320ms;">Contact</a>
+                <div class="pt-6 mobile-menu-item" style="transition-delay: 380ms;">
+                    <a href="https://www.zeffy.com/en-CA/donation-form/donate-to-change-lives-23324" target="_blank" rel="noopener noreferrer" class="inline-block w-full py-4 rounded-full bg-accentGold text-stoneDark font-semibold uppercase tracking-wider text-xs">
+                        Donate Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <picture>
+                <source media="(max-width: 768px)" srcset="herom.png">
+                <img src="hero.png" onerror="this.src='https://placehold.co/2560x1440/12100e/292524?text=Island+Warriors+Hero';" alt="Island Warriors Street Outreach Hero Background" class="w-full h-full object-cover object-center opacity-40 scale-105">
+            </picture>
+            <div class="absolute inset-0 bg-gradient-to-t from-stoneDark via-stoneDark/80 to-stoneDark/40"></div>
+        </div>
+        <div class="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+            <span class="text-xs md:text-sm font-semibold tracking-[0.3em] uppercase text-accentGold mb-4">Victoria, British Columbia</span>
+            <h1 class="font-heading text-3xl sm:text-5xl md:text-7xl font-bold tracking-wider text-creamText mb-6 leading-tight">
+                Island Warriors<br/>Street Outreach Society
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl text-accentGold font-medium max-w-2xl mb-10 tracking-wide">
+                Peer-led. Indigenous-led. Lived-experience driven. Community supported.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+                <a href="https://www.zeffy.com/en-CA/donation-form/donate-to-change-lives-23324" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-full bg-accentGold text-stoneDark font-semibold uppercase tracking-wider text-xs hover:bg-accentGoldHover transition-all shadow-lg hover:shadow-accentGold/20 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-heart mr-2"></i> Donate to Change Lives
+                </a>
+                <a href="#who-we-are" class="w-full sm:w-auto px-8 py-4 rounded-full border border-stoneBorder hover:border-accentGold text-creamText font-semibold uppercase tracking-wider text-xs transition-all bg-stoneCard/50 backdrop-blur-sm">
+                    Discover Our Story
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who We Are, Mission & Vision Consolidated Fluid Narrative -->
+    <section id="who-we-are" class="py-24 px-6 md:px-12 bg-stoneCard/40 border-t border-stoneBorder/40">
+        <div class="max-w-5xl mx-auto space-y-16">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-xs font-semibold tracking-[0.25em] uppercase text-accentGold mb-2 block">Our Foundation & Purpose</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-creamText mb-6">Who We Are & Our Mission</h2>
+                <div class="w-16 h-0.5 bg-accentGold mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-mutedText text-base md:text-lg leading-relaxed">
+                    <p class="text-creamText font-medium text-lg md:text-xl">
+                        Island Warriors Street Outreach Society (IWSO) is a peer-led, Indigenous-led grassroots nonprofit organization based in Victoria, British Columbia.
+                    </p>
+                    <p>
+                        We are people with lived experience helping people. Our leadership and outreach are grounded in Indigenous values, culture, community, and the understanding that healing begins with connection. Many of our team members understand firsthand the realities of addiction, homelessness, incarceration, trauma, poverty, and recovery. We take those lived experiences and turn them into purpose—walking alongside people who may be facing the same struggles we once faced ourselves.
+                    </p>
+                    <p class="font-heading text-accentGold font-medium italic">
+                        "We believe that lived experience is lived expertise."
+                    </p>
+                    <p>
+                        Our mission is to provide peer-led, Indigenous-led outreach, support, advocacy, cultural connection, and recovery navigation to people impacted by homelessness, addiction, trauma, incarceration, poverty, and social isolation. We work to bridge gaps, restore hope and dignity, and meet people where they are to walk beside them toward where they want to be.
+                    </p>
+                </div>
+
+                <!-- Editorial Assets Grid -->
+                <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="overflow-hidden rounded-2xl border border-stoneBorder card-glow h-64 bg-stoneCard">
+                            <img src="a.jpg" onerror="this.src='https://placehold.co/600x800/1c1917/d4a373?text=IWSO+Outreach';" alt="IWSO Outreach Asset A" class="w-full h-full object-cover">
+                        </div>
+                        <div class="overflow-hidden rounded-2xl border border-stoneBorder card-glow h-40 bg-stoneCard">
+                            <img src="b.jpg" onerror="this.src='https://placehold.co/600x600/1c1917/d4a373?text=IWSO+Community';" alt="IWSO Community Asset B" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <div class="overflow-hidden rounded-2xl border border-stoneBorder card-glow h-40 bg-stoneCard">
+                            <img src="d.jpg" onerror="this.src='https://placehold.co/600x600/1c1917/d4a373?text=IWSO+Support';" alt="IWSO Support Asset D" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 rounded-2xl bg-stoneCard border border-stoneBorder flex flex-col justify-center items-center text-center h-64">
+                            <span class="font-heading text-3xl font-bold text-accentGold mb-2">100%</span>
+                            <span class="text-xs uppercase tracking-wider text-creamText">Peer & Indigenous Led</span>
+                            <p class="text-xs text-mutedText mt-2">Ground-level boots on the street.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision Statement Box -->
+            <div class="p-8 md:p-12 rounded-3xl bg-stoneCard border border-stoneBorder text-center shadow-xl">
+                <span class="text-xs uppercase tracking-widest text-accentGold mb-3 block">Our Vision</span>
+                <p class="font-heading text-xl md:text-2xl text-creamTest mb-4">
+                    "A community where no one is forgotten and no one has to walk alone."
+                </p>
+                <p class="text-mutedText text-sm md:text-base max-w-3xl mx-auto leading-relaxed">
+                    We envision Indigenous people and all community members having access to culturally safe, peer-led support that recognizes the whole person—helping people reconnect with culture, community, family, identity, purpose, recovery, and hope beyond survival.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Condensed "What We Do" Section (Single Fullscreen Paragraph) -->
+    <section id="what-we-do" class="py-24 px-6 md:px-12 bg-stoneDark">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold tracking-[0.25em] uppercase text-accentGold mb-2 block">Our Services & Action</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-creamText mb-6">What We Do</h2>
+                <div class="w-16 h-0.5 bg-accentGold mx-auto"></div>
+            </div>
+
+            <div class="p-8 md:p-14 rounded-3xl bg-stoneCard border border-stoneBorder/80 shadow-2xl relative">
+                <div class="absolute top-6 left-6 text-accentGold/20 font-heading text-5xl">“</div>
+                <p class="relative z-10 text-mutedText text-base md:text-xl leading-relaxed text-justify space-y-6">
+                    Island Warriors Street Outreach provides comprehensive, barrier-free support across Victoria through direct peer-led street outreach—meeting people where they are with food, clothing, water, hygiene supplies, and seasonal necessities. We offer deep Indigenous-led cultural support by connecting individuals with ceremonies, drumming, circles, Elders, and Knowledge Keepers for holistic healing. Our work encompasses specialized peer support from those who understand addiction, homelessness, and trauma firsthand, alongside dedicated recovery navigation to help individuals explore detox and treatment. We also provide systems advocacy, healthcare and housing referrals, community feeds, cultural workshops, and collaborative partnership building with nonprofits, governments, and community members to close gaps in services and foster lasting connection.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- All My Relations Section -->
+    <section id="relations" class="py-24 px-6 md:px-12 bg-stoneCard/40 border-t border-stoneBorder/40">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-xs font-semibold tracking-[0.25em] uppercase text-accentGold mb-2 block">Sacred Philosophy</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-creamText mb-6">All My Relations</h2>
+                <div class="w-16 h-0.5 bg-accentGold mx-auto"></div>
+            </div>
+
+            <div class="p-8 md:p-14 rounded-3xl bg-stoneCard border border-accentGold/30 shadow-2xl relative mb-12">
+                <div class="absolute top-6 left-6 text-accentGold/20 font-heading text-6xl">“</div>
+                <div class="relative z-10 space-y-6 text-mutedText text-base md:text-lg leading-relaxed pl-4 md:pl-8">
+                    <p class="text-creamText font-medium text-lg md:text-xl">
+                        All My Relations is more than something we say—it reflects how we try to walk in this world.
+                    </p>
+                    <p>
+                        It reminds us that we are connected to one another, our ancestors, future generations, our communities, and the land. That is why we don't see "the homeless" when we walk onto the street. We see our relatives. Someone's son. Someone's daughter. A mother, father, brother, sister, auntie, uncle, Elder, friend, or loved one.
+                    </p>
+                    <p class="font-heading text-xl text-accentGold italic">
+                        Our doors and our hearts are open to people from all walks of life. Indigenous-led does not mean Indigenous-only. It means our work is guided by Indigenous values of relationship, responsibility, respect, reciprocity, and caring for one another.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Testimonies with Image Accordion Toggle -->
+    <section id="testimonies" class="py-24 px-6 md:px-12 bg-stoneDark border-t border-stoneBorder/40">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-xs font-semibold tracking-[0.25em] uppercase text-accentGold mb-2 block">Lived Expertise & Stories</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-creamText mb-6">Leadership Testimonies</h2>
+                <div class="w-16 h-0.5 bg-accentGold mx-auto"></div>
+                <p class="text-mutedText mt-4 text-sm md:text-base">Click on any leader's profile photo to read their full story of struggle, survival, and purpose.</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Testimony 1: Shane Bullis -->
+                <div class="bg-stoneCard border border-stoneBorder rounded-3xl p-6 md:p-8 card-glow">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border-2 border-accentGold/50 flex-shrink-0 cursor-pointer group relative" onclick="toggleTestimony('shane-content', 'shane-icon')">
+                            <img src="bullet.jpg" onerror="this.src='https://placehold.co/400x400/1c1917/d4a373?text=Shane+Bullet';" alt="Shane Bullis" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-stoneDark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-accentGold text-xs uppercase font-bold tracking-wider text-center px-2">Click to Read</span>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center md:text-left">
+                            <span class="text-xs text-accentGold uppercase tracking-widest font-semibold block mb-1">Founder & Executive Director</span>
+                            <h3 class="font-heading text-2xl font-bold text-creamText mb-2">Shane Bullis — "Bullet"</h3>
+                            <p class="text-mutedText text-sm leading-relaxed mb-4">
+                                From the Streets to Serving the Streets — My Story of Addiction, Survival, Recovery, and Purpose. "I'm not somebody who learned about addiction, homelessness, trauma, or incarceration from reading a textbook. I lived it."
+                            </p>
+                            <button onclick="toggleTestimony('shane-content', 'shane-icon')" class="inline-flex items-center space-x-2 text-xs uppercase font-bold tracking-wider text-accentGold hover:text-accentGoldHover focus:outline-none">
+                                <span id="shane-btn-text">Read Full Testimony</span>
+                                <i class="fa-solid fa-chevron-down transition-transform duration-300" id="shane-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Collapsible Content -->
+                    <div id="shane-content" class="hidden mt-8 pt-8 border-t border-stoneBorder space-y-6 text-mutedText text-sm md:text-base leading-relaxed">
+                        <p class="text-creamText italic font-heading text-lg">"From the Streets to Serving the Streets — My Story of Addiction, Survival, Recovery, and Purpose"</p>
+                        <p>My name is Shane Bullis, and some people know me as Bullet.</p>
+                        <p>Before I tell you what Island Warriors Street Outreach Society is all about, I want to tell you a little bit about the man behind it and why this work means so much to me.</p>
+                        <p>I'm not somebody who learned about addiction, homelessness, trauma, or incarceration from reading a textbook. I lived it.</p>
+                        <p>For nearly 10 years, I was lost in addiction, homelessness, violence, and the streets. I lived a life that nearly killed me more times than I can count. I've been shot three times. I've jumped from a five-storey building. I've overdosed. I've sat behind jail walls. I've slept in places no human being should ever have to sleep. I've experienced the loneliness, shame, judgment, and hopelessness that so many of our unhoused relatives face every single day.</p>
+                        <p>There was a time when I didn't believe I would ever make it out alive. I was using fentanyl heavily, destroying myself, and hurting the people who loved me. But Creator had other plans for me. Through recovery, ceremony, culture, prayer, and the love of people who refused to give up on me, I slowly began finding my way back. My Indigenous culture helped save my life.</p>
+                        <p>On July 22, 2024, I began a new chapter in my life. Today, I have over two years of sobriety, and I wake up every morning grateful for another opportunity to do something meaningful with the life I was given. But getting sober wasn't the end of my journey; it was the beginning of my responsibility. If I ever made it out of that darkness, I made a promise to go back and help others find their way out too.</p>
+                        <p class="font-heading text-accentGold font-bold">My name is Shane Bullis. I'm a father, a grandfather, a man in recovery, an Indigenous warrior, and the proud Founder and Executive Director of Island Warriors Street Outreach Society. We stand for our people. All My Relations. Miigwetch.</p>
+                    </div>
+                </div>
+
+                <!-- Testimony 2: Angela Wauthy -->
+                <div class="bg-stoneCard border border-stoneBorder rounded-3xl p-6 md:p-8 card-glow">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border-2 border-accentGold/50 flex-shrink-0 cursor-pointer group relative" onclick="toggleTestimony('angela-content', 'angela-icon')">
+                            <img src="angela.jpg" onerror="this.src='https://placehold.co/400x400/1c1917/d4a373?text=Angela+Wauthy';" alt="Angela Wauthy" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-stoneDark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-accentGold text-xs uppercase font-bold tracking-wider text-center px-2">Click to Read</span>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center md:text-left">
+                            <span class="text-xs text-accentGold uppercase tracking-widest font-semibold block mb-1">Vice President & Outreach Coordinator</span>
+                            <h3 class="font-heading text-2xl font-bold text-creamText mb-2">Angela Wauthy</h3>
+                            <p class="text-mutedText text-sm leading-relaxed mb-4">
+                                "My journey hasn't always been easy. I have lived experience with addiction and homelessness, and I know firsthand what it feels like to struggle, to face judgment, and to experience some of life's darkest moments."
+                            </p>
+                            <button onclick="toggleTestimony('angela-content', 'angela-icon')" class="inline-flex items-center space-x-2 text-xs uppercase font-bold tracking-wider text-accentGold hover:text-accentGoldHover focus:outline-none">
+                                <span id="angela-btn-text">Read Full Testimony</span>
+                                <i class="fa-solid fa-chevron-down transition-transform duration-300" id="angela-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Collapsible Content -->
+                    <div id="angela-content" class="hidden mt-8 pt-8 border-t border-stoneBorder space-y-6 text-mutedText text-sm md:text-base leading-relaxed">
+                        <p class="text-creamText italic font-heading text-lg">"My past gave me experience. My journey gave me strength. And today, my purpose is to use both to help others."</p>
+                        <p>My name is Angela Wauthy, and I am proud to serve as the Vice President and Outreach Coordinator of Island Warriors Street Outreach Society.</p>
+                        <p>My journey hasn't always been easy. I have lived experience with addiction and homelessness, and I know firsthand what it feels like to struggle, to face judgment, and to experience some of life's darkest moments. But I also know that change is possible.</p>
+                        <p>Through my own experiences, I have developed a deep understanding and compassion for those who are struggling. I've worked as an outreach worker, supporting individuals facing homelessness, addiction, trauma, and other barriers. Today, I use my past not as something that defines me, but as something that gives me purpose.</p>
+                        <p class="font-heading text-accentGold font-bold">I am proud to stand alongside our team and continue bringing love, compassion, and hope to the streets of Victoria. All My Relations. — Angela Wauthy.</p>
+                    </div>
+                </div>
+
+                <!-- Testimony 3: Eddie Legault -->
+                <div class="bg-stoneCard border border-stoneBorder rounded-3xl p-6 md:p-8 card-glow">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border-2 border-accentGold/50 flex-shrink-0 cursor-pointer group relative" onclick="toggleTestimony('eddie-content', 'eddie-icon')">
+                            <img src="eddie.jpg" onerror="this.src='https://placehold.co/400x400/1c1917/d4a373?text=Eddie+Legault';" alt="Eddie Legault" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-stoneDark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-accentGold text-xs uppercase font-bold tracking-wider text-center px-2">Click to Read</span>
+                            </div>
+                        </div>
+                        <div class="flex-grow text-center md:text-left">
+                            <span class="text-xs text-accentGold uppercase tracking-widest font-semibold block mb-1">President & Co-Founder</span>
+                            <h3 class="font-heading text-2xl font-bold text-creamText mb-2">Eddie Legault</h3>
+                            <p class="text-mutedText text-sm leading-relaxed mb-4">
+                                A Story of Struggle, Survival, Recovery, and Giving Back. "I helped build this organization because I know what it's like to be homeless, to struggle with addiction, to feel forgotten, and to wonder whether anyone truly cares."
+                            </p>
+                            <button onclick="toggleTestimony('eddie-content', 'eddie-icon')" class="inline-flex items-center space-x-2 text-xs uppercase font-bold tracking-wider text-accentGold hover:text-accentGoldHover focus:outline-none">
+                                <span id="eddie-btn-text">Read Full Testimony</span>
+                                <i class="fa-solid fa-chevron-down transition-transform duration-300" id="eddie-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Collapsible Content -->
+                    <div id="eddie-content" class="hidden mt-8 pt-8 border-t border-stoneBorder space-y-6 text-mutedText text-sm md:text-base leading-relaxed">
+                        <p class="text-creamText italic font-heading text-lg">"A Story of Struggle, Survival, Recovery, and Giving Back"</p>
+                        <p>My name is Eddie Legault. I'm 51 years old, and I was born in Sudbury, Ontario. My life hasn't been an easy road, growing up in foster care and group homes. When I was 13 or 14 years old, I moved to Victoria, British Columbia.</p>
+                        <p>Like many people struggling with trauma and pain, I turned to substances at a young age, leading to homelessness, jail, and dark roads. In 2011, I attended Maple Ridge Treatment Centre, which became an important turning point. Over the years, I worked with Our Place Society in outreach and peer support.</p>
+                        <p class="font-heading text-accentGold font-bold">My past doesn't define who I am today. It gives me the understanding, compassion, and determination to help others find their way. We do recover. Every story matters. All My Relations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commitment & Official Pamphlet Section -->
+    <section id="commitment" class="py-24 px-6 md:px-12 bg-stoneCard/30 border-t border-stoneBorder/40">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs font-semibold tracking-[0.25em] uppercase text-accentGold block">Our Pledge</span>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-creamText">Our Commitment</h2>
+                    <p class="text-mutedText text-base md:text-lg leading-relaxed">
+                        We believe connection creates hope, and hope creates the possibility for change. Island Warriors Street Outreach is committed to showing up, building relationships, listening without judgment, advocating for our relatives, and helping people find pathways toward healing.
+                    </p>
+                    <div class="p-6 rounded-2xl bg-stoneCard border border-stoneBorder space-y-3">
+                        <div class="flex items-center space-x-3 text-accentGold font-heading font-bold">
+                            <i class="fa-solid fa-shield-heart text-xl"></i>
+                            <span>Guiding Principles</span>
+                        </div>
+                        <p class="text-creamText text-sm tracking-wide font-medium">
+                            Peer-led. Indigenous-led. Lived-experience driven. Community supported.
+                        </p>
+                    </div>
+                    <div class="pt-4">
+                        <a href="https://www.zeffy.com/en-CA/donation-form/donate-to-change-lives-23324" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-accentGold text-stoneDark font-semibold uppercase tracking-wider text-xs hover:bg-accentGoldHover transition-all shadow-lg">
+                            <i class="fa-solid fa-heart"></i>
+                            <span>Support Our Mission via Zeffy</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pamphlet Viewer (iwso.jpg) -->
+                <div class="lg:col-span-5 flex flex-col items-center">
+                    <div class="w-full max-w-sm rounded-2xl overflow-hidden border-2 border-accentGold/40 shadow-2xl bg-stoneCard card-glow group relative cursor-pointer" onclick="openPamphletModal()">
+                        <img src="iwso.jpg" onerror="this.src='https://placehold.co/600x800/1c1917/d4a373?text=IWSO+Pamphlet';" alt="IWSO Pamphlet Preview" class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-stoneDark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-6 py-3 rounded-full bg-accentGold text-stoneDark font-semibold text-xs uppercase tracking-wider shadow-lg">
+                                <i class="fa-solid fa-magnifying-glass-plus mr-2"></i> View Pamphlet
+                            </span>
+                        </div>
+                    </div>
+                    <span class="text-xs text-mutedText mt-4 text-center">Click image to preview official society pamphlet</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="pt-24 pb-12 px-6 md:px-12 bg-stoneCard/80 border-t border-stoneBorder">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <span class="font-heading font-bold base text-creamText">Island Warriors Street Outreach</span>
+                </div>
+                <p class="text-mutedText text-xs leading-relaxed italic font-medium">
+                    "WE DO RECOVER. WE DO OUTREACH. WE DO IT TOGETHER. ONE COMMUNITY. ONE FAMILY."
+                </p>
+                <div class="pt-2">
+                    <a href="https://www.zeffy.com/en-CA/donation-form/donate-to-change-lives-23324" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 rounded-full border border-accentGold text-accentGold hover:bg-accentGold hover:text-stoneDark text-[11px] font-semibold uppercase tracking-wider transition-all">
+                        Donate via Zeffy
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-heading text-sm font-bold text-creamText uppercase tracking-wider mb-4">Navigation</h4>
+                <ul class="space-y-2 text-xs text-mutedText">
+                    <li><a href="#who-we-are" class="hover:text-accentGold transition-colors">Who We Are</a></li>
+                    <li><a href="#what-we-do" class="hover:text-accentGold transition-colors">What We Do</a></li>
+                    <li><a href="#relations" class="hover:text-accentGold transition-colors">All My Relations</a></li>
+                    <li><a href="#testimonies" class="hover:text-accentGold transition-colors">Testimonies</a></li>
+                    <li><a href="#commitment" class="hover:text-accentGold transition-colors">Commitment</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-heading text-sm font-bold text-creamText uppercase tracking-wider mb-4">Contact Us</h4>
+                <ul class="space-y-3 text-xs text-mutedText">
+                    <li>
+                        <a href="tel:2368372071" class="flex items-center space-x-2 hover:text-accentGold transition-colors">
+                            <i class="fa-solid fa-phone text-accentGold"></i>
+                            <span>236-837-2071</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:18772312890" class="flex items-center space-x-2 hover:text-accentGold transition-colors">
+                            <i class="fa-solid fa-phone text-accentGold"></i>
+                            <span>1-877-231-2890</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:islandwarriorsstreet@gmail.com" class="flex items-center space-x-2 hover:text-accentGold transition-colors">
+                            <i class="fa-solid fa-envelope text-accentGold"></i>
+                            <span>islandwarriorsstreet@gmail.com</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/share/1bu4i5Z1sP" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 hover:text-accentGold transition-colors">
+                            <i class="fa-brands fa-facebook text-accentGold"></i>
+                            <span>facebook.com/share/1bu4i5Z1sP</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-heading text-sm font-bold text-creamText uppercase tracking-wider mb-4">Location</h4>
+                <p class="text-xs text-mutedText leading-relaxed mb-3">
+                    Victoria, British Columbia<br>
+                    Coast Salish Territory
+                </p>
+                <p class="text-xs text-accentGold font-medium">
+                    Peer-led. Indigenous-led.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-stoneBorder/60 flex flex-col sm:flex-row items-center justify-between text-xs text-mutedText">
+            <p>&copy; 2026 Island Warriors Street Outreach Society. All rights reserved.</p>
+            <p class="mt-4 sm:mt-0 text-accentGold font-medium">All My Relations 🪶</p>
+        </div>
+    </footer>
+
+    <!-- Pamphlet Modal -->
+    <div id="pamphlet-modal" class="fixed inset-0 z-50 bg-stoneDark/95 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="relative max-w-3xl w-full max-h-[90vh] flex flex-col items-center">
+            <button onclick="closePamphletModal()" aria-label="Close modal" class="absolute -top-12 right-0 text-creamText hover:text-accentGold text-2xl p-2 focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="modal-img" src="" alt="Pamphlet Full View" class="max-h-[80vh] w-auto object-contain rounded-2xl border border-accentGold/40 shadow-2xl bg-stoneCard">
+        </div>
+    </div>
+
+    <script>
+        // Sticky Header Shrink on Scroll
+        const header = document.getElementById('site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('py-2', 'shadow-xl');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2', 'shadow-xl');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+
+        hamburgerBtn.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.contains('open');
+            if (isOpen) {
+                mobileMenu.classList.remove('open');
+                hamburgerIcon.classList.remove('fa-xmark');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = 'auto';
+            } else {
+                mobileMenu.classList.add('open');
+                hamburgerIcon.classList.remove('fa-bars');
+                hamburgerIcon.classList.add('fa-xmark');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburgerIcon.classList.remove('fa-xmark');
+                hamburgerIcon.classList.add('fa-bars');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Testimony Accordion Toggle function
+        function toggleTestimony(contentId, iconId) {
+            const content = document.getElementById(contentId);
+            const icon = document.getElementById(iconId);
+            
+            const prefix = contentId.split('-')[0];
+            const btnText = document.getElementById(prefix + '-btn-text');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                if (btnText) btnText.innerText = 'Hide Full Testimony';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                if (btnText) btnText.innerText = 'Read Full Testimony';
+            }
+        }
+
+        // Pamphlet Modal Functions
+        function openPamphletModal() {
+            const modal = document.getElementById('pamphlet-modal');
+            const modalImg = document.getElementById('modal-img');
+            const previewImgSrc = document.querySelector('#commitment img').src;
+            modalImg.src = previewImgSrc;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePamphletModal() {
+            const modal = document.getElementById('pamphlet-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('pamphlet-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'pamphlet-modal') {
+                closePamphletModal();
+            }
+        });
+    </script>
+</body>
+</html>
